@@ -24,13 +24,14 @@
   },
   "scripts": {
     "build": "webpack --config webpack.prod.config.js",
-    "start": "webpack serve --config webpack.dev.config.js --hot"
+    "start": "webpack serve --config webpack.dev.config.js --hot",
+    "serve": "node src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "handlebars": "^4.7.7",
-    "lodash": "^4.17.21"
+    "express": "^4.18.2",
+    "handlebars": "^4.7.7"
   }
 }
