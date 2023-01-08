@@ -1,10 +1,9 @@
-import { addImage } from './add-image';
 import { Heading } from './components/heading/heading';
 import { HelloWorldButton } from './components/hello-world-button/hello-world-button';
 import { helloWorld } from './hello-world';
+import _ from 'lodash'
 
 helloWorld();
-addImage();
 new HelloWorldButton().render();
 
 function add(x) {
@@ -36,4 +35,4 @@ function annotation(target) {
   target.annotated = true;
 }
 
-Heading.render();
+Heading.render(_.upperFirst('home'));

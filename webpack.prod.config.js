@@ -4,9 +4,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: { home: './src/index.js', lion: './src/lion.js' },
   output: {
-    filename: 'bundle.[contenthash:8].js',
+    filename: '[name].[contenthash:8].js',
     path: path.resolve(__dirname, 'build/'),
     // default for webpack5: publicPath: 'auto'
     // default for webpack4: publicPath: ''
@@ -14,6 +14,11 @@ module.exports = {
     clean: true,
   },
   mode: 'production',
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   module: {
     rules: [
       {
@@ -49,13 +54,23 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'styles.[contenthash:8].css',
+      filename: '[name].[contenthash:8].css',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/index.hbs',
+      filename: 'hello-world.html',
+      template: 'src/page-template.hbs',
       title: 'Title from HBS',
       description: 'description loaded from template file',
+      chunks: ['index'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'lion.html',
+      template: 'src/page-template.hbs',
+      title: 'Cute lion',
+      description: 'Very cute lion cub',
+      chunks: ['lion'],
     }),
   ],
 };

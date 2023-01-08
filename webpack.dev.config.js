@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: { home: './src/index.js', lion: './src/lion.js' },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[contenthash:8].js',
     path: path.resolve(__dirname, 'dist/'),
     // default for webpack5: publicPath: 'auto'
     // default for webpack4: publicPath: ''
@@ -12,6 +13,11 @@ module.exports = {
     clean: true,
   },
   mode: 'development',
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   devServer: {
     port: 9000,
     static: {
@@ -19,7 +25,7 @@ module.exports = {
     },
     devMiddleware: {
       index: 'index.html',
-      writeToDisk: true,    // by default is false
+      writeToDisk: true, // by default is false
     },
   },
   module: {
@@ -57,10 +63,20 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: 'src/index.hbs',
+      filename: 'hello-world.html',
+      template: 'src/page-template.hbs',
       title: 'Title from HBS',
       description: 'description loaded from template file',
+      chunks: ['home'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'lion.html',
+      template: 'src/page-template.hbs',
+      title: 'Cute lion',
+      description: 'Very cute lion cub',
+      chunks: ['lion'],
     }),
   ],
 };
