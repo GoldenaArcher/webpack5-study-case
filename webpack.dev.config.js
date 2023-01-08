@@ -9,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist/'),
     // default for webpack5: publicPath: 'auto'
     // default for webpack4: publicPath: ''
-    publicPath: '',
+    publicPath: '/static/',
     clean: true,
   },
   mode: 'development',
