@@ -1,9 +1,0 @@
-{
-  "plugins": [
-    [
-      "@babel/plugin-proposal-pipeline-operator",
-      { "proposal": "minimal", "topicToken": "^^" }
-    ],
-    ["@babel/plugin-proposal-decorators", { "legacy": true }]
-  ]
-}
